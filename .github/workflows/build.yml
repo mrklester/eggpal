@@ -1,4 +1,4 @@
-name: Build Check
+name: Project Build Check
 on: [push]
 
 jobs:
@@ -13,5 +13,5 @@ jobs:
 
       - run: |
           npm ci
-          npm build
-          npm lint
+          npm run build
+          npm run lint
