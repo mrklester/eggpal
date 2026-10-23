@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from '../auth/Login';
 import DashboardPage from '../components/ui/Dashboard/DashboardPage';
 import AdminLayout from '../layouts/AdminLayout';
+import LogHarvest from '../log/LogHarvest';
 
 const AppRoutes = () => {
   return (
@@ -11,6 +12,7 @@ const AppRoutes = () => {
       <Route path="/admin" element={<AdminLayout />}>
         <Route index path="dashboard" element={<DashboardPage />} />
       </Route>
+      <Route path="/log-harvest" element={<LogHarvest />} />
     </Routes>
   );
 };
