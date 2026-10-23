@@ -17,12 +17,18 @@ const Login = () => {
       return;
     }
 
-    navigate('/dashboard');
+    navigate('/admin/dashboard');
   });
 
   return (
     <Flex h="svh" w="full" justify="center" align="center" p="4">
-      <Box border="2px solid" borderColor="gray.400" rounded="md" p="8" w="full">
+      <Box
+        border="2px solid"
+        borderColor="gray.400"
+        rounded="md"
+        p="8"
+        w={{ base: 'full', md: '1/3' }}
+      >
         <form onSubmit={onSubmit}>
           <VStack spaceY="4">
             <Heading textAlign="left" w="full">
