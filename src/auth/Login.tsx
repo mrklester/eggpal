@@ -30,7 +30,7 @@ const Login = () => {
         w={{ base: 'full', md: '1/3' }}
       >
         <form onSubmit={onSubmit}>
-          <VStack spaceY="4">
+          <VStack gap="4">
             <Heading textAlign="left" w="full">
               Welcometo EggPal
             </Heading>
