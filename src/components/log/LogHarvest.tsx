@@ -1,6 +1,6 @@
 import { Field, Input, Box, Heading, Stack, Button } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import { useLogHarvest } from '../../hooks/log/LogHarvest';
+import { useLogHarvest } from '../../hooks/Log';
 
 interface FormValues {
   small: number;
