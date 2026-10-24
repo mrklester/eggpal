@@ -1,5 +1,6 @@
 import { Field, Input, Box, Heading, Stack, Button } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
+import { useLogHarvest } from '../../hooks/log/LogHarvest';
 
 interface FormValues {
   small: number;
@@ -9,9 +10,12 @@ interface FormValues {
 }
 
 const LogHarvest = () => {
+  const logHarvestMutation = useLogHarvest();
   const { register, handleSubmit } = useForm<FormValues>();
 
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const onSubmit = handleSubmit((data) => {
+    logHarvestMutation.mutate(data);
+  });
 
   return (
     <Box p="4" w="full" minH="100dvh">
