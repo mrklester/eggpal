@@ -1,8 +1,8 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Login from '../auth/Login';
+import Login from '../components/auth/Login';
 import DashboardPage from '../components/ui/Dashboard/DashboardPage';
-import AdminLayout from '../layouts/AdminLayout';
-import LogHarvest from '../log/LogHarvest';
+import AdminLayout from '../components/layouts/AdminLayout';
+import LogHarvest from '../components/log/LogHarvest';
 
 const AppRoutes = () => {
   return (

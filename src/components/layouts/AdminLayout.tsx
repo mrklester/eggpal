@@ -1,7 +1,7 @@
 import { Flex, Stack } from '@chakra-ui/react';
-import TopNav from '../components/Admin/TopNav';
+import TopNav from '../Admin/TopNav';
 import { Outlet } from 'react-router-dom';
-import Sidebar from '../components/Admin/Sidebar';
+import Sidebar from '../Admin/Sidebar';
 import { useBreakpointValue } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
