@@ -4,6 +4,7 @@ import DashboardPage from '../components/ui/Dashboard/DashboardPage';
 import AdminLayout from '../components/layouts/AdminLayout';
 import LogHarvest from '../components/log/LogHarvest';
 import LogExpenses from '../components/log/LogExpenses';
+import LogSales from '../components/log/LogSales';
 
 const AppRoutes = () => {
   return (
@@ -14,7 +15,8 @@ const AppRoutes = () => {
         <Route index path="dashboard" element={<DashboardPage />} />
       </Route>
       <Route path="/log-harvest" element={<LogHarvest />} />
-      <Route path="log-expenses" element={<LogExpenses />} />
+      <Route path="/log-expenses" element={<LogExpenses />} />
+      <Route path="/log-sales" element={<LogSales />} />
     </Routes>
   );
 };
