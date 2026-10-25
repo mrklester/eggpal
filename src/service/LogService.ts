@@ -1,7 +1,7 @@
-import { axiosInstance } from '../apiClient';
-import type { HarvestPayload } from '../../entity/payload/HarvestPayload';
-import type { ExpensesPayload } from '../../entity/payload/ExpensesPayload';
-import type { SalesPayload } from '../../entity/payload/SalesPayload';
+import { axiosInstance } from './apiClient';
+import type { HarvestPayload } from '../entity/payload/HarvestPayload';
+import type { ExpensesPayload } from '../entity/payload/ExpensesPayload';
+import type { SalesPayload } from '../entity/payload/SalesPayload';
 
 export const logHarvest = async (harvest: HarvestPayload) => {
   const response = await axiosInstance.post('/log-harvest', harvest);

@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from '../components/auth/Login';
-import DashboardPage from '../components/ui/Dashboard/DashboardPage';
+import DashboardPage from '../components/dashboard/DashboardPage';
 import AdminLayout from '../components/layouts/AdminLayout';
 import LogHarvest from '../components/log/LogHarvest';
 import LogExpenses from '../components/log/LogExpenses';
