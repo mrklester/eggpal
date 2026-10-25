@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { logHarvest, logExpenses, logSales } from '../service/log/LogService';
+import { logHarvest, logExpenses, logSales } from '../service/LogService';
 import type { HarvestPayload } from '../entity/payload/HarvestPayload';
 import type { ExpensesPayload } from '../entity/payload/ExpensesPayload';
 import type { SalesPayload } from '../entity/payload/SalesPayload';
