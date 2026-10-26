@@ -5,6 +5,7 @@ import AdminLayout from '../components/layouts/AdminLayout';
 import LogHarvest from '../components/log/LogHarvest';
 import LogExpenses from '../components/log/LogExpenses';
 import LogSales from '../components/log/LogSales';
+import LogHomePage from '../components/log/LogHomePage';
 
 const AppRoutes = () => {
   return (
@@ -17,6 +18,7 @@ const AppRoutes = () => {
       <Route path="/log-harvest" element={<LogHarvest />} />
       <Route path="/log-expenses" element={<LogExpenses />} />
       <Route path="/log-sales" element={<LogSales />} />
+      <Route path="/log-homepage" element={<LogHomePage />} />
     </Routes>
   );
 };

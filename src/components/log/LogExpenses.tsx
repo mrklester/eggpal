@@ -1,6 +1,8 @@
-import { Input, Field, Box, Button, Stack, Heading } from '@chakra-ui/react';
+import { Input, Field, Box, Button, Stack, Heading, HStack, IconButton } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { useLogExpenses } from '../../hooks/Log';
+import { FiArrowLeft } from 'react-icons/fi';
 
 interface FormValues {
   amount: number;
@@ -8,6 +10,7 @@ interface FormValues {
 }
 
 const LogExpenses = () => {
+  const navigate = useNavigate();
   const logExpensesMutation = useLogExpenses();
   const { register, handleSubmit } = useForm<FormValues>();
   const onSubmit = handleSubmit((data) => {
@@ -15,9 +18,17 @@ const LogExpenses = () => {
   });
   return (
     <Box w="full" p="4" minH="100dvh" display="flex" flexDir="column">
-      {' '}
       <Stack flex="1" minH={0} gap="4">
-        <Heading fontSize="2xl">Log Expenses</Heading>
+        <HStack gap="2">
+          <IconButton
+            aria-label="Back to log home"
+            variant="ghost"
+            onClick={() => navigate('/log-homepage')}
+          >
+            <FiArrowLeft />
+          </IconButton>
+          <Heading fontSize="2xl">Log Expenses</Heading>
+        </HStack>
         <form onSubmit={onSubmit} id="log-expenses-form">
           <Stack gap="4">
             <Field.Root>
