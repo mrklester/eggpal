@@ -1,6 +1,8 @@
-import { Field, Input, Box, Heading, Stack, Button } from '@chakra-ui/react';
+import { Field, Input, Box, Heading, Stack, Button, HStack, IconButton } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { useLogHarvest } from '../../hooks/Log';
+import { FiArrowLeft } from 'react-icons/fi';
 
 interface FormValues {
   small: number;
@@ -10,6 +12,7 @@ interface FormValues {
 }
 
 const LogHarvest = () => {
+  const navigate = useNavigate();
   const logHarvestMutation = useLogHarvest();
   const { register, handleSubmit } = useForm<FormValues>();
 
@@ -20,7 +23,16 @@ const LogHarvest = () => {
   return (
     <Box p="4" w="full" minH="100dvh">
       <Stack w="full" gap="4">
-        <Heading fontSize="2xl">Log Harvest</Heading>
+        <HStack gap="2">
+          <IconButton
+            aria-label="Back to log home"
+            variant="ghost"
+            onClick={() => navigate('/log-homepage')}
+          >
+            <FiArrowLeft />
+          </IconButton>
+          <Heading fontSize="2xl">Log Harvest</Heading>
+        </HStack>
         <form onSubmit={onSubmit} id="log-harvest-form">
           <Stack gap="4" flex="1">
             <Field.Root>

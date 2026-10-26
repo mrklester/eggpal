@@ -1,6 +1,8 @@
-import { Input, Field, Button, Box, Stack, Heading } from '@chakra-ui/react';
+import { Input, Field, Button, Box, Stack, Heading, HStack, IconButton } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { useLogSales } from '../../hooks/Log';
+import { FiArrowLeft } from 'react-icons/fi';
 
 interface FormValues {
   amount: number;
@@ -8,6 +10,7 @@ interface FormValues {
 }
 
 const LogSales = () => {
+  const navigate = useNavigate();
   const logSalesMutation = useLogSales();
   const { register, handleSubmit } = useForm<FormValues>();
   const onSubmit = handleSubmit((data) => {
@@ -17,9 +20,18 @@ const LogSales = () => {
   return (
     <Box minH="100dvh" w="full" display="flex" flexDirection="column" p="4">
       <Stack flex="1" gap="4">
+        <HStack gap="2">
+          <IconButton
+            aria-label="Back to log home"
+            variant="ghost"
+            onClick={() => navigate('/log-homepage')}
+          >
+            <FiArrowLeft />
+          </IconButton>
+          <Heading fontSize="2xl">Log Sales</Heading>
+        </HStack>
         <form onSubmit={onSubmit} id="log-sales-form">
           <Stack gap="4">
-            <Heading fontSize="2xl">Log Sales</Heading>
             <Field.Root>
               <Field.Label>Egg Size</Field.Label>
               <select
