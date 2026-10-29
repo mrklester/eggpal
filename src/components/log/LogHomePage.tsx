@@ -1,5 +1,5 @@
 import type { ElementType } from 'react';
-import { Box, Heading, HStack, Icon, SimpleGrid, Stack, Text } from '@chakra-ui/react';
+import { Box, Heading, HStack, Icon, SimpleGrid, Stack, Text, Button } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { FiDollarSign, FiPackage, FiTrendingUp } from 'react-icons/fi';
 
@@ -33,6 +33,11 @@ const LogHomePage = () => {
 
   return (
     <Box minH="100dvh" w="full" p="4">
+      <Box textAlign="right" mb="-4">
+        <Button variant="ghost" textDecoration="underline" onClick={() => navigate('/admin/dashboard')}>
+          Admin
+        </Button>
+      </Box>
       <Box pt="6" pb="4">
         <Stack gap="1">
           <Heading fontSize="2xl">Logs</Heading>

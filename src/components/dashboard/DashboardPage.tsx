@@ -2,6 +2,7 @@ import { Box, Flex } from '@chakra-ui/react';
 import ProfitCard from './ProfitCard';
 import ExpensesCard from './ExpensesCard';
 import SalesCard from './SalesCard';
+import EggProductionChart from './EggProductionChart';
 
 const DashboardPage = () => {
   return (
@@ -11,6 +12,9 @@ const DashboardPage = () => {
         <ExpensesCard />
         <SalesCard />
       </Flex>
+      <Box>
+        <EggProductionChart />
+      </Box>
     </Box>
   );
 };
