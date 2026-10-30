@@ -1,5 +1,6 @@
 import { axiosInstance } from './apiClient';
 import type { EggProductionMonthResponse } from '../entity/response/EggProductionResponse';
+import type { EggProductionStatsResponse } from '../entity/response/EggProductionStatsResponse';
 
 export const getProfit = async () => {
   const response = await axiosInstance.get('/get-profit');
@@ -33,6 +34,24 @@ export type GetEggProductionMonthParams = {
  */
 export const getEggProductionMonth = async (params: GetEggProductionMonthParams): Promise<EggProductionMonthResponse> => {
   const response = await axiosInstance.get<EggProductionMonthResponse>('/get-egg-production', {
+    params,
+  });
+  return response.data;
+};
+
+/**
+ * Fetch egg production stats per size (peak/average/lowest) for a given month.
+ *
+ * Expected backend endpoint:
+ * - GET `/get-egg-production-stats?year=2026&month=10`
+ *
+ * Expected response body:
+ * - EggProductionStatsResponse[]
+ */
+export const getEggProductionStats = async (
+  params: GetEggProductionMonthParams,
+): Promise<EggProductionStatsResponse[]> => {
+  const response = await axiosInstance.get<EggProductionStatsResponse[]>('/get-egg-production-stats', {
     params,
   });
   return response.data;
