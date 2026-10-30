@@ -1,15 +1,15 @@
 import { Box, Flex, Heading, Text } from '@chakra-ui/react';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 import { useGetEggProductionMonth } from '../../hooks/Dashboard';
 import type { EggProductionChartPoint, EggProductionMonthResponse } from '../../entity/response/EggProductionResponse';
 
-const MONTH_OPTIONS = [
-  { label: 'October', month: 10 },
-  { label: 'November', month: 11 },
-  { label: 'December', month: 12 },
-] as const;
+export type EggProductionChartProps = {
+  year: number;
+  /** Month number 1-12 */
+  month: number;
+};
 
 const toChartPoints = (resp: EggProductionMonthResponse): EggProductionChartPoint[] => {
   return resp.days
@@ -20,39 +20,18 @@ const toChartPoints = (resp: EggProductionMonthResponse): EggProductionChartPoin
     .sort((a, b) => a.day - b.day);
 };
 
-const EggProductionChart = () => {
-  const [selectedMonth, setSelectedMonth] = useState<number>(10);
-  const selectedYear = new Date().getFullYear();
-
+const EggProductionChart = ({ year, month }: EggProductionChartProps) => {
   const { data, isLoading, isError, error } = useGetEggProductionMonth({
-    year: selectedYear,
-    month: selectedMonth,
+    year,
+    month,
   });
 
   const chartData = useMemo(() => (data ? toChartPoints(data) : []), [data]);
 
   return (
-    <Box mt="6" borderWidth="1px" borderRadius="md">
+    <Box mt="6" borderWidth="1px" borderRadius="md" p="4">
       <Flex justify="space-between" align="center" gap="3" mb="3" flexWrap="wrap">
         <Heading size="sm">Daily Egg Production (by size)</Heading>
-
-        <select
-          value={selectedMonth}
-          onChange={(e) => setSelectedMonth(Number(e.target.value))}
-          style={{
-            border: '0.5px solid gray',
-            padding: '6px',
-            borderRadius: '6px',
-            minWidth: '160px',
-          }}
-          aria-label="Select month"
-        >
-          {MONTH_OPTIONS.map((m) => (
-            <option key={m.month} value={m.month}>
-              {m.label}
-            </option>
-          ))}
-        </select>
       </Flex>
 
       {isLoading && (
