@@ -2,6 +2,7 @@ import { VStack, Box, Text, Drawer, Portal, Heading, Flex } from '@chakra-ui/rea
 import { NavLink } from 'react-router-dom';
 import { LuLayoutDashboard } from 'react-icons/lu';
 import { MdOutlineInventory2 } from 'react-icons/md';
+import { MdOutlineHistory } from 'react-icons/md';
 
 interface SidebarProps {
   isSidebarOpen: boolean;
@@ -18,6 +19,14 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }: SidebarProps) => {
           </Text>
           <NavLink to="/admin/dashboard">
             <Text>Dashboard</Text>
+          </NavLink>
+        </Flex>
+        <Flex align="center" spaceX="1.5">
+          <Text>
+            <MdOutlineHistory />
+          </Text>
+          <NavLink to="/admin/log-history">
+            <Text>Logs</Text>
           </NavLink>
         </Flex>
         <Flex align="center" spaceX="1.5">
