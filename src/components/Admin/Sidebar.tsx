@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { LuLayoutDashboard } from 'react-icons/lu';
 import { MdOutlineInventory2 } from 'react-icons/md';
 import { MdOutlineHistory } from 'react-icons/md';
+import { MdOutlineAnalytics } from 'react-icons/md';
 
 interface SidebarProps {
   isSidebarOpen: boolean;
@@ -35,6 +36,14 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }: SidebarProps) => {
           </Text>
           <NavLink to="/admin/inventory">
             <Text>Inventory</Text>
+          </NavLink>
+        </Flex>
+        <Flex align="center" spaceX="1.5">
+          <Text>
+            <MdOutlineAnalytics />
+          </Text>
+          <NavLink to="/admin/analytics">
+            <Text>Analytics</Text>
           </NavLink>
         </Flex>
       </VStack>
