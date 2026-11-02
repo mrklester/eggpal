@@ -70,6 +70,12 @@ const AnalyticsHomePage = () => {
           icon={MdOutlineCompareArrows}
           onClick={() => navigate('/admin/analytics/profit')}
         />
+        <NavCard
+          title="Egg Production Comparison"
+          description="Compare Peak, Lowest, Average, and Total production by size between two months."
+          icon={MdOutlineCompareArrows}
+          onClick={() => navigate('/admin/analytics/egg-production')}
+        />
       </SimpleGrid>
     </Box>
   );
