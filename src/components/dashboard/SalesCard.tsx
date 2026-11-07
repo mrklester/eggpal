@@ -1,7 +1,14 @@
 import { Stat } from '@chakra-ui/react';
 import { useGetSales } from '../../hooks/Dashboard';
-const SalesCard = () => {
-  const { data: sales, isLoading, isError } = useGetSales();
+
+export type SalesCardProps = {
+  year: number;
+  /** Month number 1-12 */
+  month: number;
+};
+
+const SalesCard = ({ year, month }: SalesCardProps) => {
+  const { data: sales, isLoading, isError } = useGetSales({ year, month });
   const salesText = isLoading
     ? 'Loading..'
     : isError

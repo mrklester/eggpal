@@ -28,13 +28,7 @@ const DashboardPage = () => {
 
   return (
     <Box p="8">
-      <Flex direction={{ base: 'column', md: 'row' }} gap="4">
-        <ProfitCard />
-        <ExpensesCard />
-        <SalesCard />
-      </Flex>
-
-      <Flex mt="6" justify="flex-end">
+      <Flex justify="flex-end">
         <select
           value={selectedMonth}
           onChange={(e) => setSelectedMonth(Number(e.target.value))}
@@ -52,6 +46,12 @@ const DashboardPage = () => {
             </option>
           ))}
         </select>
+      </Flex>
+
+      <Flex mt="6" direction={{ base: 'column', md: 'row' }} gap="4">
+        <ProfitCard year={selectedYear} month={selectedMonth} />
+        <ExpensesCard year={selectedYear} month={selectedMonth} />
+        <SalesCard year={selectedYear} month={selectedMonth} />
       </Flex>
 
       <EggProductionCard year={selectedYear} month={selectedMonth} />

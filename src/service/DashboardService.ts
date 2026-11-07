@@ -2,18 +2,24 @@ import { axiosInstance } from './apiClient';
 import type { EggProductionMonthResponse } from '../entity/response/EggProductionResponse';
 import type { EggProductionStatsResponse } from '../entity/response/EggProductionStatsResponse';
 
-export const getProfit = async () => {
-  const response = await axiosInstance.get('/get-profit');
+export type GetMonthlyFinancialParams = {
+  year: number;
+  /** Month number 1-12 */
+  month: number;
+};
+
+export const getProfit = async (params: GetMonthlyFinancialParams) => {
+  const response = await axiosInstance.get('/get-profit', { params });
   return response.data.profit;
 };
 
-export const getSales = async () => {
-  const response = await axiosInstance.get('/get-sales');
+export const getSales = async (params: GetMonthlyFinancialParams) => {
+  const response = await axiosInstance.get('/get-sales', { params });
   return response.data.sales;
 };
 
-export const getExpenses = async () => {
-  const response = await axiosInstance.get('/get-expenses');
+export const getExpenses = async (params: GetMonthlyFinancialParams) => {
+  const response = await axiosInstance.get('/get-expenses', { params });
   return response.data.expenses;
 };
 

@@ -1,7 +1,14 @@
 import { Stat } from '@chakra-ui/react';
 import { useGetExpenses } from '../../hooks/Dashboard';
-const ExpensesCard = () => {
-  const { data: expenses, isLoading, isError } = useGetExpenses();
+
+export type ExpensesCardProps = {
+  year: number;
+  /** Month number 1-12 */
+  month: number;
+};
+
+const ExpensesCard = ({ year, month }: ExpensesCardProps) => {
+  const { data: expenses, isLoading, isError } = useGetExpenses({ year, month });
   const expensesText = isLoading
     ? 'Loading...'
     : isError
