@@ -5,17 +5,28 @@ import { useLogSales } from '../../hooks/Log';
 import { FiArrowLeft } from 'react-icons/fi';
 
 interface FormValues {
-  amount: number;
   eggSize: string;
+  amount: number;
+  trays: number;
+  pieces: number;
 }
+
+const EGGS_PER_TRAY = 30;
 
 const LogSales = () => {
   const navigate = useNavigate();
   const logSalesMutation = useLogSales();
   const { register, handleSubmit } = useForm<FormValues>();
   const onSubmit = handleSubmit((data) => {
-    logSalesMutation.mutate(data);
-    console.log(data);
+    const trays = Number.isFinite(data.trays) ? data.trays : 0;
+    const pieces = Number.isFinite(data.pieces) ? data.pieces : 0;
+    const eggSalesCount = trays * EGGS_PER_TRAY + pieces;
+
+    logSalesMutation.mutate({
+      eggSize: data.eggSize,
+      amount: data.amount,
+      eggSalesCount,
+    });
   });
   return (
     <Box minH="100dvh" w="full" display="flex" flexDirection="column" p="4">
@@ -56,7 +67,33 @@ const LogSales = () => {
             </Field.Root>
             <Field.Root>
               <Field.Label>Amount</Field.Label>
-              <Input type="number" {...register('amount')} placeholder="Enter Amount" />
+              <Input
+                type="number"
+                placeholder="Enter Amount"
+                {...register('amount', { valueAsNumber: true, min: 0 })}
+              />
+            </Field.Root>
+            <Field.Root>
+              <Field.Label>Tray</Field.Label>
+              <Input
+                type="number"
+                placeholder="Enter trays"
+                {...register('trays', {
+                  valueAsNumber: true,
+                  min: 0,
+                })}
+              />
+            </Field.Root>
+            <Field.Root>
+              <Field.Label>Piece</Field.Label>
+              <Input
+                type="number"
+                placeholder="Enter additional pieces"
+                {...register('pieces', {
+                  valueAsNumber: true,
+                  min: 0,
+                })}
+              />
             </Field.Root>
           </Stack>
         </form>
