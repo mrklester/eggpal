@@ -2,11 +2,13 @@ import { useQuery } from '@tanstack/react-query';
 import {
   getProfitComparison,
   getEggProductionComparison,
+  getEggInventoryLeft,
   type GetProfitComparisonParams,
   type GetEggProductionComparisonParams,
 } from '../service/AnalyticsService';
 import type { AnalyticsProfitComparisonResponse } from '../entity/response/AnalyticsProfitComparisonResponse';
 import type { AnalyticsEggProductionComparisonResponse } from '../entity/response/AnalyticsEggProductionComparisonResponse';
+import type { AnalyticsEggInventoryLeftResponse } from '../entity/response/AnalyticsEggInventoryLeftResponse';
 
 export const useGetProfitComparison = (params: GetProfitComparisonParams) => {
   return useQuery<AnalyticsProfitComparisonResponse, Error>({
@@ -43,6 +45,13 @@ export const useGetEggProductionComparison = (params: GetEggProductionComparison
       Number.isFinite(params.toMonth) &&
       params.toMonth >= 1 &&
       params.toMonth <= 12,
+  });
+};
+
+export const useGetEggInventoryLeft = () => {
+  return useQuery<AnalyticsEggInventoryLeftResponse, Error>({
+    queryKey: ['analytics-egg-inventory-left'],
+    queryFn: () => getEggInventoryLeft(),
   });
 };
 
