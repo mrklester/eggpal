@@ -13,6 +13,7 @@ import LogHistoryExpenses from '../components/log/LogHistoryExpenses';
 import AnalyticsHomePage from '../components/analytics/AnalyticsHomePage';
 import ProfitComparisonPage from '../components/analytics/ProfitComparisonPage';
 import EggProductionComparisonPage from '../components/analytics/EggProductionComparisonPage';
+import EggInventoryLeftPage from '../components/analytics/EggInventoryLeftPage';
 
 const AppRoutes = () => {
   return (
@@ -26,6 +27,7 @@ const AppRoutes = () => {
         <Route path="log-history/sales" element={<LogHistorySales />} />
         <Route path="log-history/expenses" element={<LogHistoryExpenses />} />
         <Route path="analytics" element={<AnalyticsHomePage />} />
+        <Route path="analytics/egg-inventory-left" element={<EggInventoryLeftPage />} />
         <Route path="analytics/profit" element={<ProfitComparisonPage />} />
         <Route path="analytics/egg-production" element={<EggProductionComparisonPage />} />
       </Route>

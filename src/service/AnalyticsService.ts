@@ -1,6 +1,7 @@
 import { axiosInstance } from './apiClient';
 import type { AnalyticsProfitComparisonResponse } from '../entity/response/AnalyticsProfitComparisonResponse';
 import type { AnalyticsEggProductionComparisonResponse } from '../entity/response/AnalyticsEggProductionComparisonResponse';
+import type { AnalyticsEggInventoryLeftResponse } from '../entity/response/AnalyticsEggInventoryLeftResponse';
 
 export type GetProfitComparisonParams = {
   fromYear: number;
@@ -39,6 +40,11 @@ export const getEggProductionComparison = async (
     { params },
   );
 
+  return response.data;
+};
+
+export const getEggInventoryLeft = async (): Promise<AnalyticsEggInventoryLeftResponse> => {
+  const response = await axiosInstance.get<AnalyticsEggInventoryLeftResponse>('/analytics/egg-inventory-left');
   return response.data;
 };
 

@@ -65,6 +65,12 @@ const AnalyticsHomePage = () => {
 
       <SimpleGrid columns={{ base: 1, sm: 2 }} gap="4">
         <NavCard
+          title="Egg Inventory Left"
+          description="See total harvested, sold, and remaining eggs."
+          icon={MdOutlineCompareArrows}
+          onClick={() => navigate('/admin/analytics/egg-inventory-left')}
+        />
+        <NavCard
           title="Profit Comparison"
           description="Compare Profit, Expenses, and Sales between two months."
           icon={MdOutlineCompareArrows}
