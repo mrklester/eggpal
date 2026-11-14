@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useLogExpenses } from '../../hooks/Log';
 import { FiArrowLeft } from 'react-icons/fi';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 interface FormValues {
   amount: number;
@@ -12,9 +14,20 @@ interface FormValues {
 const LogExpenses = () => {
   const navigate = useNavigate();
   const logExpensesMutation = useLogExpenses();
-  const { register, handleSubmit } = useForm<FormValues>();
+  const { register, handleSubmit, reset } = useForm<FormValues>();
   const onSubmit = handleSubmit((data) => {
-    logExpensesMutation.mutate(data);
+    if (logExpensesMutation.isPending) return;
+
+    logExpensesMutation.mutate(data, {
+      onSuccess: (message) => {
+        toast.success(message || 'Expenses saved.');
+        reset();
+      },
+      onError: (err) => {
+        const msg = axios.isAxiosError(err) ? (err.response?.data as string) || err.message : (err as Error).message;
+        toast.error(msg || 'Failed to save expenses.');
+      },
+    });
   });
   return (
     <Box w="full" p="4" minH="100dvh" display="flex" flexDir="column">
@@ -64,7 +77,13 @@ const LogExpenses = () => {
         </form>
       </Stack>
       <Box position="fixed" left="0" right="0" bottom="0" p="4">
-        <Button type="submit" form="log-expenses-form" w="full">
+        <Button
+          type="submit"
+          form="log-expenses-form"
+          w="full"
+          loading={logExpensesMutation.isPending}
+          disabled={logExpensesMutation.isPending}
+        >
           Save Expenses
         </Button>
       </Box>

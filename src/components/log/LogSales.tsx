@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useLogSales } from '../../hooks/Log';
 import { FiArrowLeft } from 'react-icons/fi';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 interface FormValues {
   eggSize: string;
@@ -16,17 +18,31 @@ const EGGS_PER_TRAY = 30;
 const LogSales = () => {
   const navigate = useNavigate();
   const logSalesMutation = useLogSales();
-  const { register, handleSubmit } = useForm<FormValues>();
+  const { register, handleSubmit, reset } = useForm<FormValues>();
   const onSubmit = handleSubmit((data) => {
+    if (logSalesMutation.isPending) return;
+
     const trays = Number.isFinite(data.trays) ? data.trays : 0;
     const pieces = Number.isFinite(data.pieces) ? data.pieces : 0;
     const eggSalesCount = trays * EGGS_PER_TRAY + pieces;
 
-    logSalesMutation.mutate({
-      eggSize: data.eggSize,
-      amount: data.amount,
-      eggSalesCount,
-    });
+    logSalesMutation.mutate(
+      {
+        eggSize: data.eggSize,
+        amount: data.amount,
+        eggSalesCount,
+      },
+      {
+        onSuccess: (message) => {
+          toast.success(message || 'Sales saved.');
+          reset();
+        },
+        onError: (err) => {
+          const msg = axios.isAxiosError(err) ? (err.response?.data as string) || err.message : (err as Error).message;
+          toast.error(msg || 'Failed to save sales.');
+        },
+      },
+    );
   });
   return (
     <Box minH="100dvh" w="full" display="flex" flexDirection="column" p="4">
@@ -99,7 +115,13 @@ const LogSales = () => {
         </form>
       </Stack>
       <Box position="fixed" bottom="0" left="0" right="0" p="4">
-        <Button type="submit" form="log-sales-form" w="full">
+        <Button
+          type="submit"
+          form="log-sales-form"
+          w="full"
+          loading={logSalesMutation.isPending}
+          disabled={logSalesMutation.isPending}
+        >
           Save Sales
         </Button>
       </Box>

@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useLogHarvest } from '../../hooks/Log';
 import { FiArrowLeft } from 'react-icons/fi';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 interface FormValues {
   small: number;
@@ -14,10 +16,21 @@ interface FormValues {
 const LogHarvest = () => {
   const navigate = useNavigate();
   const logHarvestMutation = useLogHarvest();
-  const { register, handleSubmit } = useForm<FormValues>();
+  const { register, handleSubmit, reset } = useForm<FormValues>();
 
   const onSubmit = handleSubmit((data) => {
-    logHarvestMutation.mutate(data);
+    if (logHarvestMutation.isPending) return;
+
+    logHarvestMutation.mutate(data, {
+      onSuccess: (message) => {
+        toast.success(message || 'Harvest saved.');
+        reset();
+      },
+      onError: (err) => {
+        const msg = axios.isAxiosError(err) ? (err.response?.data as string) || err.message : (err as Error).message;
+        toast.error(msg || 'Failed to save harvest.');
+      },
+    });
   });
 
   return (
@@ -56,7 +69,13 @@ const LogHarvest = () => {
       </Stack>
 
       <Box position="fixed" left="0" right="0" bottom="0" p="4">
-        <Button type="submit" form="log-harvest-form" w="full">
+        <Button
+          type="submit"
+          form="log-harvest-form"
+          w="full"
+          loading={logHarvestMutation.isPending}
+          disabled={logHarvestMutation.isPending}
+        >
           Save Harvest
         </Button>
       </Box>
