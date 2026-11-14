@@ -1,4 +1,4 @@
-import { Box, Heading, Stack, Text } from '@chakra-ui/react';
+import { Box, Heading, Skeleton, Stack, Text } from '@chakra-ui/react';
 import { useGetEggInventoryLeft } from '../../hooks/Analytics';
 import EggInventoryLeft from './EggInventoryLeft';
 
@@ -20,19 +20,15 @@ const EggInventoryLeftPage = () => {
         </Stack>
       </Box>
 
-      {isLoading ? (
-        <Text fontSize="sm" mb="3">
-          Loading inventory…
-        </Text>
-      ) : null}
-
       {isError ? (
         <Text fontSize="sm" mb="3" color="red.500">
           Failed to load inventory{error?.message ? `: ${error.message}` : '.'}
         </Text>
       ) : null}
 
-      <EggInventoryLeft totalEggsHarvested={totalEggsHarvested} totalEggsSold={totalEggsSold} />
+      <Skeleton loading={isLoading} rounded="xl">
+        <EggInventoryLeft totalEggsHarvested={totalEggsHarvested} totalEggsSold={totalEggsSold} />
+      </Skeleton>
     </Box>
   );
 };

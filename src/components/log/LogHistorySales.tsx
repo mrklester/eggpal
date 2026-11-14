@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Heading, HStack, Input, Stack, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, HStack, Input, Skeleton, Stack, Text } from '@chakra-ui/react';
 import { useMemo, useState } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
@@ -47,7 +47,13 @@ const LogHistorySales = () => {
           </HStack>
         </form>
 
-        {isLoading ? <Text>Loading…</Text> : null}
+        {isLoading ? (
+          <Stack gap="3">
+            <Skeleton height="76px" rounded="md" />
+            <Skeleton height="76px" rounded="md" />
+            <Skeleton height="76px" rounded="md" />
+          </Stack>
+        ) : null}
         {isError ? <Text color="red.500">Error loading sales history.</Text> : null}
 
         <Stack gap="3">

@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react';
+import { Box, Flex, Heading, SimpleGrid, Skeleton, Stack, Text } from '@chakra-ui/react';
 import { useMemo, useState } from 'react';
 import { FiArrowDownRight, FiArrowUpRight } from 'react-icons/fi';
 import { useGetEggProductionComparison } from '../../hooks/Analytics';
@@ -206,11 +206,12 @@ const EggProductionComparisonPage = () => {
         </Flex>
       </Flex>
 
-      {isLoading && (
-        <Text fontSize="sm" mb="3">
-          Loading comparison…
-        </Text>
-      )}
+      {isLoading ? (
+        <Box mb="3">
+          <Skeleton height="4" mb="2" rounded="md" />
+          <Skeleton height="4" w="70%" rounded="md" />
+        </Box>
+      ) : null}
 
       {isError && (
         <Text fontSize="sm" mb="3" color="red.500">

@@ -1,4 +1,4 @@
-import { Stat } from '@chakra-ui/react';
+import { Skeleton, Stat } from '@chakra-ui/react';
 import { useGetProfit } from '../../hooks/Dashboard';
 
 export type ProfitCardProps = {
@@ -10,13 +10,14 @@ export type ProfitCardProps = {
 const ProfitCard = ({ year, month }: ProfitCardProps) => {
   const { data: profit, isLoading, isError } = useGetProfit({ year, month });
 
-  const profitText =
-    isLoading ? 'Loading...' : isError ? 'Error' : `₱${(profit ?? 0).toLocaleString()}`;
+  const profitText = isError ? 'Error' : `₱${(profit ?? 0).toLocaleString()}`;
 
   return (
     <Stat.Root maxW={{ base: 'full', lg: '260px' }} borderWidth="1px" p="4" rounded="md">
       <Stat.Label>Profit</Stat.Label>
-      <Stat.ValueText>{profitText}</Stat.ValueText>
+      <Skeleton loading={isLoading} height="6" mt="1" rounded="md">
+        <Stat.ValueText>{profitText}</Stat.ValueText>
+      </Skeleton>
     </Stat.Root>
   );
 };

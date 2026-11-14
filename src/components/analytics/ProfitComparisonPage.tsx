@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react';
+import { Box, Flex, Heading, SimpleGrid, Skeleton, Stack, Text } from '@chakra-ui/react';
 import { useMemo, useState } from 'react';
 import { FiArrowDownRight, FiArrowUpRight } from 'react-icons/fi';
 import { useGetProfitComparison } from '../../hooks/Analytics';
@@ -199,43 +199,47 @@ const ProfitComparisonPage = () => {
         </Flex>
       </Flex>
 
-      {isLoading && (
-        <Text fontSize="sm" mb="3">
-          Loading comparison…
-        </Text>
-      )}
-
       {isError && (
         <Text fontSize="sm" mb="3" color="red.500">
           Failed to load comparison{error?.message ? `: ${error.message}` : '.'}
         </Text>
       )}
 
-      {data ? (
-        <SimpleGrid columns={{ base: 1, lg: 3 }} gap="4">
-          <MetricComparisonCard
-            label="Profit"
-            fromMonth={fromMonth}
-            toMonth={toMonth}
-            fromValue={fromProfit}
-            toValue={toProfit}
-          />
-          <MetricComparisonCard
-            label="Expenses"
-            fromMonth={fromMonth}
-            toMonth={toMonth}
-            fromValue={fromExpenses}
-            toValue={toExpenses}
-          />
-          <MetricComparisonCard
-            label="Sales"
-            fromMonth={fromMonth}
-            toMonth={toMonth}
-            fromValue={fromSales}
-            toValue={toSales}
-          />
-        </SimpleGrid>
-      ) : null}
+      <SimpleGrid columns={{ base: 1, lg: 3 }} gap="4">
+        {(isLoading ? [0, 1, 2] : ['profit', 'expenses', 'sales']).map((key) => (
+          <Skeleton key={String(key)} loading={isLoading} height="170px" rounded="md">
+            {!isLoading && data ? (
+              key === 'profit' ? (
+                <MetricComparisonCard
+                  label="Profit"
+                  fromMonth={fromMonth}
+                  toMonth={toMonth}
+                  fromValue={fromProfit}
+                  toValue={toProfit}
+                />
+              ) : key === 'expenses' ? (
+                <MetricComparisonCard
+                  label="Expenses"
+                  fromMonth={fromMonth}
+                  toMonth={toMonth}
+                  fromValue={fromExpenses}
+                  toValue={toExpenses}
+                />
+              ) : (
+                <MetricComparisonCard
+                  label="Sales"
+                  fromMonth={fromMonth}
+                  toMonth={toMonth}
+                  fromValue={fromSales}
+                  toValue={toSales}
+                />
+              )
+            ) : (
+              <Box borderWidth="1px" p="4" rounded="md" bg="white" height="100%" />
+            )}
+          </Skeleton>
+        ))}
+      </SimpleGrid>
     </Box>
   );
 };
