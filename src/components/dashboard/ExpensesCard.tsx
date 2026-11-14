@@ -1,4 +1,4 @@
-import { Stat } from '@chakra-ui/react';
+import { Skeleton, Stat } from '@chakra-ui/react';
 import { useGetExpenses } from '../../hooks/Dashboard';
 
 export type ExpensesCardProps = {
@@ -9,15 +9,13 @@ export type ExpensesCardProps = {
 
 const ExpensesCard = ({ year, month }: ExpensesCardProps) => {
   const { data: expenses, isLoading, isError } = useGetExpenses({ year, month });
-  const expensesText = isLoading
-    ? 'Loading...'
-    : isError
-      ? 'Error'
-      : `₱${(expenses ?? 0).toLocaleString()}`;
+  const expensesText = isError ? 'Error' : `₱${(expenses ?? 0).toLocaleString()}`;
   return (
     <Stat.Root maxW={{ base: 'full', lg: '260px' }} borderWidth="1px" p="4" rounded="md">
       <Stat.Label>Expenses</Stat.Label>
-      <Stat.ValueText>{expensesText}</Stat.ValueText>
+      <Skeleton loading={isLoading} height="6" mt="1" rounded="md">
+        <Stat.ValueText>{expensesText}</Stat.ValueText>
+      </Skeleton>
     </Stat.Root>
   );
 };

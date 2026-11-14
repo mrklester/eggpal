@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, SimpleGrid, Text } from '@chakra-ui/react';
+import { Box, Flex, Heading, SimpleGrid, Skeleton, Text } from '@chakra-ui/react';
 import { useMemo } from 'react';
 import { useGetEggProductionStats } from '../../hooks/Dashboard';
 
@@ -31,9 +31,17 @@ const EggProductionCard = ({ year, month }: EggProductionCardProps) => {
     <Box mt="6">
       <Flex justify="space-between" align="center" mb="3" flexWrap="wrap" gap="2">
         <Heading size="sm">Egg Production Stats</Heading>
-        <Text fontSize="sm" color="gray.500">
-          {isLoading ? 'Loading…' : isError ? 'Error' : `${monthLabel} ${year}`}
-        </Text>
+        {isError ? (
+          <Text fontSize="sm" color="gray.500">
+            Error
+          </Text>
+        ) : (
+          <Skeleton loading={isLoading} height="4" rounded="md">
+            <Text fontSize="sm" color="gray.500">
+              {monthLabel} {year}
+            </Text>
+          </Skeleton>
+        )}
       </Flex>
 
       <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} gap="4">
@@ -41,40 +49,42 @@ const EggProductionCard = ({ year, month }: EggProductionCardProps) => {
           const stats = statsBySize.get(size) ?? { peak: 0, average: 0, lowest: 0 };
 
           return (
-            <Box key={size} borderWidth="1px" p="4" rounded="md">
-              <Heading size="sm" mb="3">
-                {toTitleCase(size)}
-              </Heading>
+            <Skeleton key={size} loading={isLoading} rounded="md">
+              <Box borderWidth="1px" p="4" rounded="md" bg="white">
+                <Heading size="sm" mb="3">
+                  {toTitleCase(size)}
+                </Heading>
 
-              <Flex direction="column" gap="2">
-                <Flex justify="space-between" align="center">
-                  <Text fontSize="sm" color="gray.500">
-                    Peak
-                  </Text>
-                  <Text fontSize="sm" fontWeight="semibold">
-                    {stats.peak}
-                  </Text>
-                </Flex>
+                <Flex direction="column" gap="2">
+                  <Flex justify="space-between" align="center">
+                    <Text fontSize="sm" color="gray.500">
+                      Peak
+                    </Text>
+                    <Text fontSize="sm" fontWeight="semibold">
+                      {stats.peak}
+                    </Text>
+                  </Flex>
 
-                <Flex justify="space-between" align="center">
-                  <Text fontSize="sm" color="gray.500">
-                    Average
-                  </Text>
-                  <Text fontSize="sm" fontWeight="semibold">
-                    {Number.isFinite(stats.average) ? stats.average.toFixed(2) : '0.00'}
-                  </Text>
-                </Flex>
+                  <Flex justify="space-between" align="center">
+                    <Text fontSize="sm" color="gray.500">
+                      Average
+                    </Text>
+                    <Text fontSize="sm" fontWeight="semibold">
+                      {Number.isFinite(stats.average) ? stats.average.toFixed(2) : '0.00'}
+                    </Text>
+                  </Flex>
 
-                <Flex justify="space-between" align="center">
-                  <Text fontSize="sm" color="gray.500">
-                    Lowest
-                  </Text>
-                  <Text fontSize="sm" fontWeight="semibold">
-                    {stats.lowest}
-                  </Text>
+                  <Flex justify="space-between" align="center">
+                    <Text fontSize="sm" color="gray.500">
+                      Lowest
+                    </Text>
+                    <Text fontSize="sm" fontWeight="semibold">
+                      {stats.lowest}
+                    </Text>
+                  </Flex>
                 </Flex>
-              </Flex>
-            </Box>
+              </Box>
+            </Skeleton>
           );
         })}
       </SimpleGrid>
